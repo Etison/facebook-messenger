@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.3.0] - 2018-02-12
+### Added
+- You may now send broadcast messages via the beta API.
+  - https://developers.facebook.com/docs/messenger-platform/send-messages/broadcast-messages
+
+### Changed
+- Facebook API version bumped to v2.11 (was 2.6), which is the minimum version that supports broadcast messaging
+
 ## [1.2.0] - 2018-02-01
 ### Added
 - ability to handle `messaging_policy_enforcement` webhook from Facebook
