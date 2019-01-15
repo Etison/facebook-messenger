@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.4.1] - 2019-01-15
+## Changed
+- Use graph api v3.0
+
 ## [1.3.1] - 2019-01-15
 ### Changed
 - Updated fork off of https://github.com/jgorset/facebook-messenger master branch (v1.1.2)
