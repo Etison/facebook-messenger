@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.3.1] - 2019-01-15
+### Changed
+- Updated fork off of https://github.com/jgorset/facebook-messenger master branch (v1.1.2)
+
 ## [1.3.0] - 2018-02-12
 ### Added
 - You may now send broadcast messages via the beta API.
