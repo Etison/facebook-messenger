@@ -11,16 +11,32 @@
 ## [1.2.0] - 2018-02-01
 ### Added
 - ability to handle `messaging_policy_enforcement` webhook from Facebook
-  - https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/messaging_policy_enforcement 
+  - https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/messaging_policy_enforcement
 
-## [1.1.1] - 2018-01-19
+## [1.1.2] - 2018-12-06
 ### Added
-- `prior_message` method added to common incoming messages.
-  - See step 7, ["Handle the user response" in Facebook docs](https://developers.facebook.com/docs/messenger-platform/discovery/checkbox-plugin)
+- Support for Graph API 3.2 in `Subscriptions`.
 
-## [1.1.0] - 2018-01-19
+## [1.1.1] - 2018-07-10
+
+### Fixed
+- Fixed a bug that caused messaging types and tags to not be required.
+
+## [1.1.0] - 2018-06-28
+
 ### Added
-- `user_ref` included in `optin` message type
+- Support for Rack 1.4.5 or newer (was 1.6.4).
+- `Incoming::Optin#user_ref`.
+- Support for message requests.
+- Support for Facebook's built-in NLP with `Incoming::Message#nlp`.
+- Support for payments with `Incoming::Payment`.
+- Support for handover.
+- Support for message types and tags.
+- Support for prior message.
+- Support for Graph API v2.9.
+
+### Changed
+- Error codes now include subcodes
 
 ## [1.0.0] - 2017-05-31
 
