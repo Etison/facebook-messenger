@@ -9,7 +9,7 @@ module Facebook
     #
     # Module Bot provides functionality to sends and receives messages.
     #
-    class Bot
+    module Bot
       include HTTParty
 
       base_uri 'https://graph.facebook.com/v3.0/me'

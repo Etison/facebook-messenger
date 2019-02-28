@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.4.2] - 2019-01-15
+## Changed
+- Move httparty options to class methods
+
 ## [1.4.1] - 2019-01-15
 ## Changed
 - Use graph api v3.0
