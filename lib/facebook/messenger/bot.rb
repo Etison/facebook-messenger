@@ -9,10 +9,12 @@ module Facebook
     #
     # Module Bot provides functionality to sends and receives messages.
     #
-    module Bot
+    class Bot
       include HTTParty
 
       base_uri 'https://graph.facebook.com/v3.0/me'
+      read_timeout 300
+      headers({'Content-Type' => 'application/json'})
 
       #
       # @return [Array] Array containing the supported webhook events.
@@ -48,7 +50,6 @@ module Facebook
         def deliver(message, access_token:)
           response = post '/messages',
                           body: JSON.dump(message),
-                          format: :json,
                           query: {
                             access_token: access_token
                           }
@@ -176,10 +177,7 @@ module Facebook
         #
         def default_options
           super.merge(
-            read_timeout: 300,
-            headers: {
-              'Content-Type' => 'application/json'
-            }
+
           )
         end
       end
