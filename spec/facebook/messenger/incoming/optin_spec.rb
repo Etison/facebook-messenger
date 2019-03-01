@@ -27,7 +27,7 @@ describe Facebook::Messenger::Incoming::Optin do
 
   describe '.sender' do
     it 'returns the sender' do
-      expect(subject.sender).to eq(payload['sender'])
+      expect(subject.sender).to eq({user_ref: payload['optin']['user_ref']})
     end
   end
 

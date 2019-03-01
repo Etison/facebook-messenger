@@ -14,7 +14,7 @@ module Facebook
 
       base_uri 'https://graph.facebook.com/v3.0/me'
       read_timeout 300
-      headers({'Content-Type' => 'application/json'})
+      headers('Content-Type' => 'application/json')
 
       #
       # @return [Array] Array containing the supported webhook events.
@@ -50,6 +50,7 @@ module Facebook
         def deliver(message, access_token:)
           response = post '/messages',
                           body: JSON.dump(message),
+                          format: :json,
                           query: {
                             access_token: access_token
                           }
