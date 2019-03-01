@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.4.3] - 2019-01-15
+## Fixed
+- Bad `merge` call inside of bot default_options for http_party
+
 ## [1.4.2] - 2019-01-15
 ## Changed
 - Move httparty options to class methods
