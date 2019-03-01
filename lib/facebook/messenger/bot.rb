@@ -169,17 +169,6 @@ module Facebook
         def unhook
           @hooks = {}
         end
-
-        #
-        # Default HTTParty options.
-        #
-        # @return [Hash] Default HTTParty options.
-        #
-        def default_options
-          super.merge(
-
-          )
-        end
       end
     end
   end
