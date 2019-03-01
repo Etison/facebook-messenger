@@ -1,10 +1,14 @@
 # Change Log
 
-## [1.4.3] - 2019-01-15
+## [1.4.4] - 2019-03-01
+## Fixed
+- Specs now passing again after a missing `format: :json`
+
+## [1.4.3] - 2019-03-01
 ## Fixed
 - Bad `merge` call inside of bot default_options for http_party
 
-## [1.4.2] - 2019-01-15
+## [1.4.2] - 2019-02-28
 ## Changed
 - Move httparty options to class methods
 
