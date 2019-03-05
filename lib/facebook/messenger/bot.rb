@@ -29,6 +29,7 @@ module Facebook
         message_echo
         payment
         policy_enforcement
+        standby
       ].freeze
 
       BROADCAST_MESSAGE_REGULAR = 'REGULAR'.freeze

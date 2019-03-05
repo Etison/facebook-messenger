@@ -193,7 +193,7 @@ end
 # Note: you can only send a single message per broadcast at this time.
 response = Bot.prepare_broadcast({
               messages: [{text: message}]
-            }, 
+            },
             access_token: '...')
 response = JSON.parse(response)
 #=> {"message_creative_id": <BROADCAST_MESSAGE_ID>}
@@ -201,7 +201,7 @@ broadcast_message_id = response['message_creative_id']
 
 # when you want to send the message:
 
-Bot.broadcast(broadcast_message_id, 
+Bot.broadcast(broadcast_message_id,
   notification_type: <BROADCAST_MESSAGE_REGULAR|BROADCAST_MESSAGE_SILENT|BROADCAST_MESSAGE_NO_PUSH>,
   message_tag: 'APPLICATION_UPDATE' # NOTE: must be a supported tag: https://developers.facebook.com/docs/messenger-platform/send-messages/message-tags,
   access_token: '...'
@@ -337,11 +337,47 @@ Facebook::Messenger::Profile.set({
 See Facebook's documentation on [Messaging Policy Enforcement](https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/messaging_policy_enforcement)
 
 ```ruby
-Bot.on :'policy_enforcement' do |referral|
+Bot.on :policy_enforcement do |referral|
   referral.action # => 'block'
   referral.reason # => "The bot violated our Platform Policies (https://developers.facebook.com/policy/#messengerplatform). Common violations include sending out excessive spammy messages or being non-functional."
 end
 ```
+
+#### Handle the Handover Protocol
+
+See Facebook's documentation on [Handover Protocol](https://developers.facebook.com/docs/messenger-platform/handover-protocol)
+
+```ruby
+Bot.on :standby do |standby|
+  standby.id                     # => { 'id' => '2015573629214912' }
+  standby.time                   # => 2016-04-22 21:30:36 +0200
+  standby.events.each do |event| # => array of events received in the standby channel
+    event.sender                 # => { 'id' => '2015573629214912' }
+    event.recipient              # => { 'id' => '2015573626263220' }
+    event.timestamp              # => 2016-04-22 21:30:36 +0200
+    case event
+    when Facebook::Messenger::Incoming::Read
+      event.at                   # => 2016-04-22 21:30:36 +0200
+      event.seq                  # => 37
+    when Facebook::Messenger::Incoming::Postback
+      event.payload              # => user_defined_payload
+      event.referral             # => hash with ref, source and type
+    when Facebook::Messenger::Incoming::Delivery
+      event.ids                  # => 'mid.1457764197618:41d102a3e1ae206a38'
+      event.at                   # => 2016-04-22 21:30:36 +0200
+      event.seq                  # => 37
+    when Facebook::Messenger::Incoming::Message
+      event.id                   # => 'mid.1457764197618:41d102a3e1ae206a38'
+      event.seq                  # => 73
+      event.sent_at              # => 2016-04-22 21:30:36 +0200
+      event.text                 # => 'Hello, bot!'
+      event.attachments          # => [ { 'type' => 'image', 'payload' => { 'url' => 'https://www.example.com/1.jpg' } } ]
+    end
+  end
+end
+```
+The standby channel can receive 4 different events: `message_reads`, `message_deliveries`, `messages` and `messaging_postbacks`, so the `standy.events` method will return the correct class with specific methods.
+
 #### messaging_type
 ##### Sending Messages
 See Facebook's documentation on [Sending Messages](https://developers.facebook.com/docs/messenger-platform/send-messages#standard_messaging)
@@ -553,7 +589,7 @@ tunnel to localhost so that Facebook can reach the webhook.
 
 In order to test that behaviour when a new event from Facebook is registered, you can use the gem's `trigger` method. This method accepts as its first argument the type of event that it will receive, and can then be followed by other arguments that mock objects received from Messenger. Using Ruby's [Struct](https://ruby-doc.org/core-2.5.0/Struct.html) class can be very useful for creating these mock objects.
 
-In this case, subscribing to Messenger events has been extracted into a `Listener` class.   
+In this case, subscribing to Messenger events has been extracted into a `Listener` class.
 ```ruby
 # app/bot/listener.rb
 require 'facebook/messenger'
@@ -601,7 +637,6 @@ RSpec.describe Listener do
   end
 end
 ```
-
 
 ## Development
 

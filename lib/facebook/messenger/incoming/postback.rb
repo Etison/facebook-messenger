@@ -9,15 +9,25 @@ module Facebook
 
         # Return String of developer defined payload.
         def payload
+          return unless postback?
           @messaging['postback']['payload']
         end
 
         # Return hash containing the referral information of user.
         def referral
+          return unless postback?
           return if @messaging['postback']['referral'].nil?
           @referral ||= Referral::Referral.new(
             @messaging['postback']['referral']
           )
+        end
+
+        private
+
+        # Possible when we receive a Standby webhook and
+        # we are not the primary receiver
+        def postback?
+          @messaging['postback'].present?
         end
       end
     end

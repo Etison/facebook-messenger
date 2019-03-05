@@ -163,5 +163,34 @@ describe Facebook::Messenger::Incoming do
         )
       end
     end
+
+    context 'when the payload is a standby' do
+      let :payload do
+        {
+          'id' => '2',
+          'time' => 1_458_692_752_478,
+          'standby' => [
+            {
+              'sender' => {
+                'id' => '3'
+              },
+              'recipient' => {
+                'id' => '3'
+              },
+              'read' => {
+                'watermark' => 145_866_885_625_3,
+                'seq' => 38
+              }
+            }
+          ]
+        }
+      end
+
+      it 'returns an Incoming::Standby' do
+        expect(subject.parse(payload)).to be_a(
+          Facebook::Messenger::Incoming::Standby
+        )
+      end
+    end
   end
 end

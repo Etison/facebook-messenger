@@ -51,6 +51,24 @@ describe Facebook::Messenger::Incoming::Postback do
     it 'returns the payload of the postback' do
       expect(subject.payload).to eq(payload['postback']['payload'])
     end
+
+    context 'when payload is not set' do
+      let :payload do
+        {
+          'sender' => {
+            'id' => '3'
+          },
+          'recipient' => {
+            'id' => '3'
+          },
+          'timestamp' => 145_776_419_762_7
+        }
+      end
+
+      it 'returns nil' do
+        expect(subject.payload).to be_nil
+      end
+    end
   end
 
   describe '.referral' do
@@ -83,6 +101,24 @@ describe Facebook::Messenger::Incoming::Postback do
           'postback' => {
             'payload' => 'USER_DEFINED_PAYLOAD'
           }
+        }
+      end
+
+      it 'returns nil' do
+        expect(subject.referral).to be_nil
+      end
+    end
+
+    context 'when payload is not set' do
+      let :payload do
+        {
+          'sender' => {
+            'id' => '3'
+          },
+          'recipient' => {
+            'id' => '3'
+          },
+          'timestamp' => 145_776_419_762_7
         }
       end
 

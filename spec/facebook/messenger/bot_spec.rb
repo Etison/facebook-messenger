@@ -119,6 +119,22 @@ describe Facebook::Messenger::Bot do
         subject.receive({})
       end
     end
+
+    context 'with a standby' do
+      let(:standby) do
+        Facebook::Messenger::Incoming::Standby.new({})
+      end
+
+      it 'triggers a :standby' do
+        expect(Facebook::Messenger::Incoming).to receive(:parse)
+          .and_return(standby)
+
+        expect(Facebook::Messenger::Bot).to receive(:trigger)
+          .with(:standby, standby)
+
+        subject.receive({})
+      end
+    end
   end
 
   describe '.trigger' do
