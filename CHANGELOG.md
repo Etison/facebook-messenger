@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.4.5] - 2019-03-06
+### Added
+- You may now be able to receive standby webhooks
+  - https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/standby
+
 ## [1.4.4] - 2019-03-01
 ## Fixed
 - Specs now passing again after a missing `format: :json`
