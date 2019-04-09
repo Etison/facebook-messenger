@@ -11,6 +11,7 @@ require 'facebook/messenger/incoming/referral'
 require 'facebook/messenger/incoming/payment'
 require 'facebook/messenger/incoming/policy_enforcement'
 require 'facebook/messenger/incoming/standby'
+require 'facebook/messenger/incoming/request_thread_control'
 
 module Facebook
   module Messenger
@@ -33,7 +34,8 @@ module Facebook
         'message_request' => MessageRequest,
         'payment' => Payment,
         'policy_enforcement' => PolicyEnforcement,
-        'standby' => Standby
+        'standby' => Standby,
+        'request_thread_control' => RequestThreadControl
       }.freeze
 
       # Parse the given payload and create new object of class related

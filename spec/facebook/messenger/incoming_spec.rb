@@ -192,5 +192,24 @@ describe Facebook::Messenger::Incoming do
         )
       end
     end
+
+    context 'when the payload is a request_thread_control' do
+      let(:payload) do
+        {
+          'id' => 2,
+          'time' => 1_458_692_752_478,
+          'request_thread_control' => {
+            'requested_owner_app_id' => 123456789,
+            'metadata' => 'abcdefg::123455'
+          }
+        }
+      end
+
+      it 'returns an Incoming::RequestThreadControl' do
+        expect(subject.parse(payload)).to be_a(
+          Facebook::Messenger::Incoming::RequestThreadControl
+        )
+      end
+    end
   end
 end

@@ -1,5 +1,10 @@
 # Change Log
 
+##[1.4.6] - 2019-04-09
+### Added
+- You may now receive request_thread_control webhooks
+  - https://developers.facebook.com/docs/messenger-platform/handover-protocol/request-thread-control/
+
 ## [1.4.5] - 2019-03-06
 ### Added
 - You may now be able to receive standby webhooks
