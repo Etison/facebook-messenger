@@ -1,5 +1,10 @@
 # Change Log
 
+##[1.4.7] - 2019-08-23
+### Changed
+- Updated gem with upstream master (which is at version 1.4.0) 
+- Commit SHA from upstream 765b0c75262297f2c0dc21011fcf6a9726bdc60d
+
 ##[1.4.6] - 2019-04-09
 ### Added
 - You may now receive request_thread_control webhooks
@@ -26,9 +31,17 @@
 ## Changed
 - Use graph api v3.0
 
+## [1.4.0] - 2019-04-17 (from upstream)
+
+### Added
+- Support for game_plays
+
 ## [1.3.1] - 2019-01-15
 ### Changed
 - Updated fork off of https://github.com/jgorset/facebook-messenger master branch (v1.1.2)
+
+### Added
+- Support for pass_thread_control
 
 ## [1.3.0] - 2018-02-12
 ### Added
