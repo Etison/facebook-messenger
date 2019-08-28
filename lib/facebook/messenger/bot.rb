@@ -12,9 +12,7 @@ module Facebook
     module Bot
       include HTTParty
 
-      base_uri 'https://graph.facebook.com/v3.0/me'
-      read_timeout 300
-      headers('Content-Type' => 'application/json')
+      base_uri 'https://graph.facebook.com/v3.3/me'
 
       #
       # @return [Array] Array containing the supported webhook events.
@@ -30,6 +28,8 @@ module Facebook
         payment
         policy_enforcement
         standby
+        pass_thread_control
+        game_play
       ].freeze
 
       BROADCAST_MESSAGE_REGULAR = 'REGULAR'.freeze
@@ -45,16 +45,22 @@ module Facebook
         #
         # @param [Hash] message A Hash describing the recipient and the message.
         # @param [String] access_token Access token.
+        # @param [String] app_secret_proof proof of the app_secret
+        # https://developers.facebook.com/docs/graph-api/securing-requests/
+        # Note: we provide a helper function available at
+        # Messenger::Configuration::Providers::Base#calculate_app_secret_proof
         #
         # Returns a String describing the message ID if the message was sent,
         # or raises an exception if it was not.
-        def deliver(message, access_token:)
+        def deliver(message, access_token:, app_secret_proof: nil)
+          query = {
+            access_token: access_token
+          }
+          query[:appsecret_proof] = app_secret_proof if app_secret_proof
           response = post '/messages',
                           body: JSON.dump(message),
                           format: :json,
-                          query: {
-                            access_token: access_token
-                          }
+                          query: query
 
           Facebook::Messenger::Bot::ErrorParser.raise_errors_from(response)
 
@@ -170,6 +176,20 @@ module Facebook
         #
         def unhook
           @hooks = {}
+        end
+
+        #
+        # Default HTTParty options.
+        #
+        # @return [Hash] Default HTTParty options.
+        #
+        def default_options
+          super.merge(
+            read_timeout: 300,
+            headers: {
+              'Content-Type' => 'application/json'
+            }
+          )
         end
       end
     end

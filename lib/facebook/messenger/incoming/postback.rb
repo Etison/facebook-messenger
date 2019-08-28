@@ -17,6 +17,7 @@ module Facebook
         def referral
           return unless postback?
           return if @messaging['postback']['referral'].nil?
+
           @referral ||= Referral::Referral.new(
             @messaging['postback']['referral']
           )
